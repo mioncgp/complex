@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t mioncgp/react-test -f Dockerfile ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true mioncgp/react-test npm test
+
+after_success:
+  - docker build -t mioncgp/multi-client ./client
+  - docker build -t mioncgp/multi-nginx ./nginx
+  - docker build -t mioncgp/multi-server ./server
+  - docker build -t mioncgp/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push mioncgp/multi-client
+  - docker push mioncgp/multi-nginx
+  - docker push mioncgp/multi-server
+  - docker push mioncgp/multi-worker
