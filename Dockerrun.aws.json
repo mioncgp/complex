@@ -6,6 +6,31 @@
       "image": "michaelcgp/multi-client",
       "hostname": "client",
       "essential": false
+    },
+    {
+      "name": "server",
+      "image": "michaelcgp/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "michaelcgp/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "michaelcgp/multi-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "container": 80
+        }
+      ],
+      "links": ["client", "server"]
     }
   ]
 }
