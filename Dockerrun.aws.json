@@ -1,0 +1,11 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "ContainerDefinitions": [
+    {
+      "name": "client",
+      "image": "michaelcgp/multi-client",
+      "hostname": "client",
+      "essential": false
+    }
+  ]
+}
